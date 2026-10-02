@@ -10,6 +10,12 @@ from .views import (
     DashboardView, GoodsListView, StockInListView, StockOutListView,
     WarningListView, ApprovalListView
 )
+from .recall_views import (
+    RecallCaseListView, RecallCaseDetailView, RecallCaseCloseView,
+    RecallBasisListView, RecallBasisDetailView, RecallRecomputeView,
+    RecallItemListView, RecallRevisionListView,
+    RecallSnapshotListView, RecallSnapshotDetailView, RecallFreezeListView,
+)
 
 urlpatterns = [
     # 仪表盘
@@ -48,4 +54,19 @@ urlpatterns = [
     
     # 审批管理
     path('approvals/', ApprovalListView.as_view(), name='approval-list'),
+
+    # 召回案件管理
+    path('recalls/', RecallCaseListView.as_view(), name='recall-list'),
+    path('recalls/freezes/', RecallFreezeListView.as_view(), name='recall-freeze-list'),
+    path('recalls/<int:pk>/', RecallCaseDetailView.as_view(), name='recall-detail'),
+    path('recalls/<int:pk>/close/', RecallCaseCloseView.as_view(), name='recall-close'),
+    path('recalls/<int:pk>/recompute/', RecallRecomputeView.as_view(), name='recall-recompute'),
+    path('recalls/<int:pk>/bases/', RecallBasisListView.as_view(), name='recall-basis-list'),
+    path('recalls/<int:pk>/bases/<int:basis_id>/',
+         RecallBasisDetailView.as_view(), name='recall-basis-detail'),
+    path('recalls/<int:pk>/items/', RecallItemListView.as_view(), name='recall-item-list'),
+    path('recalls/<int:pk>/revisions/', RecallRevisionListView.as_view(), name='recall-revision-list'),
+    path('recalls/<int:pk>/snapshots/', RecallSnapshotListView.as_view(), name='recall-snapshot-list'),
+    path('recalls/<int:pk>/snapshots/<int:snapshot_id>/',
+         RecallSnapshotDetailView.as_view(), name='recall-snapshot-detail'),
 ]
